@@ -1,0 +1,10 @@
+services:
+  door:
+    build: .
+    command: gunicorn --bind 0.0.0.0:5001 src.main
+    ports:
+      - 5001:5001
+    env_file:
+      - ./.env
+    restart: unless-stopped
+

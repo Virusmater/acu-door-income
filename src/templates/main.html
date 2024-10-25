@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Door income</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<form>
+    Door income <br>
+    from <input
+        id="from-time"
+        type="datetime-local"
+        name="from-time"
+        value="{{ from_time }}"
+        required/> <br>
+    to <input
+        id="to-time"
+        type="datetime-local"
+        name="to-time"
+        value="{{ to_time }}"
+        required/>
+    <br>
+    <select name="event_id" id="event_id">
+        <option value="-1">No Presale</option>
+        {% for event in events %}
+            <option {% if event.event_id == event_info.event_id %} selected {% endif %} value="{{ event.event_id }}">{{ event.title }}</option>
+        {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value="Calculate">
+</form>
+</br>
+
+Pin = {{ sumup }} EUR
+</br>
+{% if event_info.event_id != -1 %}
+Presale = {{event_info.profit }} EUR (Total revenue of {{ event_info.revenue }} EUR - {{ event_info.tickets_sold }} EUR service fees)
+{% endif %}
+<br>
+
+</body>
+</html>
