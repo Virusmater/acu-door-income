@@ -18,7 +18,7 @@ stager_token = os.getenv("STAGER_TOKEN")
 def root():
     return "404"
 
-@application.route("/"+ magic_word)
+@application.route("/"+ magic_word, methods = ['GET', 'POST'])
 def main():
     to_time = request.args.get('to-time')
     if to_time:
