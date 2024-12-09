@@ -18,8 +18,12 @@ stager_token = os.getenv("STAGER_TOKEN")
 def root():
     return "404"
 
+@application.route("/"+ magic_word + "/v2", methods = ['GET', 'POST'])
+def main_v2():
+    return main('main-v2.html')
+
 @application.route("/"+ magic_word, methods = ['GET', 'POST'])
-def main():
+def main(template = 'main.html'):
     to_time = request.args.get('to-time')
     if to_time:
         to_time = datetime.strptime(to_time, local_datetime_format)
@@ -58,7 +62,7 @@ def main():
 
     from_time_default = from_time.strftime(local_datetime_format)
     to_time_default = to_time.strftime(local_datetime_format)
-    return render_template('main.html', sumup=total_amount, from_time = from_time_default,
+    return render_template(template, sumup=total_amount, from_time = from_time_default,
                            to_time = to_time_default, events=get_events(), event_info=get_event_info(event_id))
 
 def get_events():
